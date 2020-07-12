@@ -16,7 +16,7 @@ Run the **docker_commands.sh** script which will use docker-compose to build the
 chmod +x docker_commands.sh
 ./docker_commands.sh
 ```
-This script will build and launch your docker containers. 
+This script will build and launch your docker microservices containers. 
 
 
 # Usage
