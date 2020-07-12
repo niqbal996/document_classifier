@@ -1,0 +1,6 @@
+numpy
+pillow
+pdf2image
+torch
+torchvision
+flask
