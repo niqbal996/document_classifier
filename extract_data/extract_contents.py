@@ -1,7 +1,10 @@
 import pdf2image
 import pytesseract
 from os import path
-from flask import Flask, request, render_template
+from os.path import join
+from flask import Flask, request, render_template, redirect
+from glob import glob
+
 app = Flask(__name__)
 
 def get_image(pdf_file_path):
@@ -18,10 +21,9 @@ def extract_contents(pdf_path):
 
 @app.route('/extract', methods=['GET'])
 def display_extracted_data():
-    if path.isfile(r'data/sample.pdf'):
-        print("Before writing the file")
-        string_data = extract_contents(pdf_path=r'data/sample.pdf')
-        print("After writing the file")
+    pdf_file = glob("data/*.pdf")
+    if len(pdf_file) != 0:
+        string_data = extract_contents(pdf_path=pdf_file[0])
         return '[INFO] Following pdf data has been extracted: <br/>' + string_data
     else:
         return '[INFO] No file found. '
