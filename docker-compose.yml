@@ -17,8 +17,8 @@ services:
 #     - extract_data
 #
 #   # Link the redis and postgres containers together so they can talk to one another
-   links:
-     - extract_data
+#   links:
+#     - extract_data
 
    # Pass environment variables to the flask container (this debug level lets you see more useful information)
    environment:
@@ -26,13 +26,7 @@ services:
 
  # Define the redis Docker container
  extract_data:
-
-   # use the redis:alpine image: https://hub.docker.com/_/redis/
-   image: python:3
-#   restart: always
-#   deploy:
-#     mode: replicated
-#     replicas: 3
+#   image: python:3
    build: ./extract_data
    ports:
      - "8000:8000"
@@ -40,8 +34,13 @@ services:
    volumes:
      - sharedvol:/extract_data/data
 
-#   # The Flask application needs to be available for NGINX to make successful proxy requests
-#   depends_on:
-#     - flaskapp
+ classify:
+#    image: python:3
+    build: ./classify
+    ports:
+      - "9000:9000"
+    volumes:
+      - sharedvol:/classify/data
+
 volumes:
   sharedvol:
